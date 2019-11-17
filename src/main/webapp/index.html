@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Discount code</title>
+        	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>       
+        <script src="JS/actionDiscountCode.js" ></script>
+       
+    </head>
+    
+    <body>
+        <!-- On montre le formulaire de saisie -->
+        <div class="container">
+            <h1>Edition des taux de remise</h1>
+                    <div id="showMsg"></div>
+
+            <div class="row justify-content-center">
+                <form class="col-3" method='GET'>
+                    <div class="form-group">
+                      <label for="Discount">Discount code</label>
+                      <input name="code" id="Discount" class="form-control" placeholder="Une lettre en MAJUSCULES" pattern="[A-Z]{1}+">
+                    </div>
+                    <div class="form-group">
+                      <label for="rate">Taux</label>
+                      <input class="form-control" id="rate" type="number" step="0.01" min="0.0" max="99.99">
+                    </div>
+                    <input type="hidden" name="action" value="ADD">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+                <div class="col-6">
+                   <table class="table"> 
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Taux</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="showAllCodeICI"></tbody>
+                    </table> 
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Le template qui sert à formatter la liste des clients résultats -->
+        <script id="showAllCode" type="text/template">
+            {{codes}}
+			 {{#codes}}
+                         <tr>
+                            <td>{{discountCode}}</td>
+                            <td>{{rate}}</td>
+                            <td><button type="button" class="btn btn-danger" onclick="deleteCode({{discountCode}})">Suprimer</button></td>
+                         </tr>
+                        {{/codes}}
+	</script>
+        <script id="msg" type="text/template"><h4>{{msg}}</h4></script>
+                    
+                
+    </body>
+</html>

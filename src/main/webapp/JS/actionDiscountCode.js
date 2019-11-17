@@ -14,9 +14,6 @@ $(document).ready(// Exécuté à la fin du chargement de la page
 
 
 function showAllCode() {
-    // Quel est l'état sélectionné ?
-    //var selectedState = $("#state").val();	
-    // On fait un appel AJAX pour chercher les clients de cet état
     $.ajax({
             url: "ShowCode",
             dataType: "json",
@@ -35,6 +32,30 @@ function showAllCode() {
                     },
             error: showError
     });				
+}
+
+function addCode(){
+    var code = $("#Discount").val();
+    var rate = $("#rate").val();
+    
+     $.ajax({
+            url: "AddCodeServlet",
+            data: { "code" : code,"rate":rate },
+            dataType: "json",
+            success: function(result){
+                
+                showAllCode();
+
+               // console.log("aaaaaaaa");
+                var template = $('#msg').html();
+                Mustache.parse(template);
+                var processedTemplate = Mustache.render(template, {msg:result });
+                $('#showMsg').html(processedTemplate);	
+                
+            },
+            error: showError
+    });			
+    
 }
 // Fonction qui traite les erreurs de la requête
 function showError(xhr, status, message) {

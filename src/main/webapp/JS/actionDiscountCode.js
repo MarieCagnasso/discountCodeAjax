@@ -57,6 +57,27 @@ function addCode(){
     });			
     
 }
+
+function deleteCode(code){
+    console.log(code);
+     $.ajax({
+            url: "DeleteCodeServlet",
+            data: { "code" : code},
+            dataType: "json",
+            success: function(result){
+                
+                showAllCode();
+
+               // console.log("aaaaaaaa");
+//                var template = $('#msg').html();
+//                Mustache.parse(template);
+//                var processedTemplate = Mustache.render(template, {msg:result });
+//                $('#showMsg').html(processedTemplate);	
+                
+            },
+            error: showError
+    });			
+}
 // Fonction qui traite les erreurs de la requête
 function showError(xhr, status, message) {
         alert("Erreur: " + status + " : " + message);
